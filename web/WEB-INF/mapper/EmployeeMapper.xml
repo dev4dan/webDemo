@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="com.dev4dan.dao.IEmployeeDao">
+	<resultMap id="employeeResultMap" type="com.dev4dan.model.Employee">
+		<id property="idpk" column="idpk" javaType="int"
+			jdbcType="int" />
+		<result property="name" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="salary" column="salary" javaType="int" jdbcType="int" />
+	</resultMap>
+
+
+</mapper>

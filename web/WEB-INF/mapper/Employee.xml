@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev4dan.dao.IEmployeeDao">
+
+	<resultMap id="empList" type="com.dev4dan.model.Employee">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="salary" property="salary" />
+	</resultMap>
+
+	<select id="getEmployeeById" parameterType="int" resultType="employee">
+		select * from `t_employee` where idpk = #{id}
+    </select>
+
+	<select id="getEmployeeByName" parameterType="String"
+		resultType="Order">
+		select * from `t_employee` where name = #{name}
+    </select>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dev4dan.dao.IOrderDao">
+
+	<resultMap id="orderList" type="com.dev4dan.model.Order">
+		<id column="idpk" property="ID" />
+		<result column="empFK" property="empID" />
+		<result column="saleDate" property="date" />
+	</resultMap>
+
+	<select id="getOrderByEmps" resultMap="orderList">
+		SELECT o.empIDFK, o.idpk, o.saleDate FROM `t_order` AS o WHERE empIDFK IN
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item} 
+		</foreach>
+    </select>
+    
+    <select id="getOrderByDates" resultMap="orderList">
+		SELECT o.empIDFK, o.idpk, o.saleDate FROM `t_order` AS o WHERE saleDate IN
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item} 
+		</foreach>
+    </select>
+
+	<select id="getOrderById" parameterType="int"
+		resultMap="orderList">
+		select * from `t_order` where idpk = #{ID}
+    </select>
+</mapper>
