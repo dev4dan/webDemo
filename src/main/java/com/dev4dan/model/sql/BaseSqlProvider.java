@@ -30,11 +30,10 @@ public class BaseSqlProvider {
 
 	/**
 	 * 查询结果SQL
-	 * 创建人：MoChunrun 
 	 * 创建时间：2016年1月19日 上午9:13:41
 	 * 描述：
 	 * @version v1.0
-	 * @param t
+	 * @param
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")
@@ -114,7 +113,6 @@ public class BaseSqlProvider {
 	
 	/**
 	 * 获取批量更新
-	 * 创建人：MoChunrun <br>
 	 * 创建时间：2016年1月25日 下午2:49:26<br>
 	 * 描述：<br>
 	 * @version v1.0<br>
@@ -155,7 +153,6 @@ public class BaseSqlProvider {
 	
 	/**
 	 * 修改对象转为sql
-	 * 创建人：MoChunrun <br>
 	 * 创建时间：2016年1月25日 下午2:25:06<br>
 	 * 描述：<br>
 	 * @version v1.0<br>
@@ -488,7 +485,6 @@ public class BaseSqlProvider {
 	
 	/**
 	 * sql对象
-	 * 创建人：MoChunrun <br>
 	 * 创建时间：2016年1月25日 下午2:25:31<br>
 	 * 描述：<br>
 	 * @version v1.0<br>
