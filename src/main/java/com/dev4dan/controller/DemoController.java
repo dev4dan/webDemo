@@ -17,5 +17,6 @@ public class DemoController {
 
         String message = "this info method";
         return new ModelAndView("info", "message", message);
+
     }
 }

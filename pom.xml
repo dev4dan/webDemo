@@ -27,10 +27,11 @@
         <mysql-connector>6.0.2</mysql-connector>
         <mybatis.spring.context>1.2.2</mybatis.spring.context>
         <log4j.version>1.7.2</log4j.version>
-        <spring.version>4.3.5.RELEASE</spring.version>
+        <spring.version>4.3.7.RELEASE</spring.version>
         <common-beanutils.version>1.9.3</common-beanutils.version>
         <zxing.version>3.2.0</zxing.version>
         <jstl.version>1.2</jstl.version>
+        <spring-redis>1.8.1.RELEASE</spring-redis>
     </properties>
 
     <dependencies>
@@ -112,6 +113,55 @@
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
             <version>${zxing.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>${spring-redis}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.4.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.wltea.ik-analyzer</groupId>-->
+            <!--<artifactId>ik-analyzer</artifactId>-->
+            <!--<version>3.2.8</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>org.apache.lucene</groupId>-->
+            <!--<artifactId>lucene-analyzers</artifactId>-->
+            <!--<version>3.0.3</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>6.4.2</version>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.apache.lucene</groupId>-->
+            <!--<artifactId>lucene-core</artifactId>-->
+            <!--<version>4.7.2</version>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>com.janeluo</groupId>
+            <artifactId>ikanalyzer</artifactId>
+            <version>2012_u6</version>
         </dependency>
 
     </dependencies>

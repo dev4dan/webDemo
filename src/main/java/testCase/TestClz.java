@@ -25,7 +25,9 @@ public class TestClz {
 	 */
 	public static void main(String[] args) {
 //		testSQLProvider();
-		
+		ImplClz impl = new ImplClz();
+		impl.invokeAbsMethod("impl...");
+
 		System.out.println(Constants.CONDITION.AND.name());
 	}
 	
