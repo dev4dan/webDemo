@@ -1,4 +1,4 @@
-package com.dev4dan.demo.lucene;
+package com.dev4dan.comp4Framework.lucene;
 
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
@@ -9,7 +9,6 @@ import org.wltea.analyzer.core.IKSegmenter;
 import org.wltea.analyzer.core.Lexeme;
 
 import java.io.IOException;
-import java.io.Reader;
 
 /**
  * Created by danielwood on 21/03/2017.

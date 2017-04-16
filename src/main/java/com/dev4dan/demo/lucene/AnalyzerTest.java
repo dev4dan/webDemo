@@ -1,5 +1,6 @@
 package com.dev4dan.demo.lucene;
 
+import com.dev4dan.comp4Framework.lucene.SubIKAnalyzer;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.cjk.CJKAnalyzer;

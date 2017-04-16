@@ -1,9 +1,8 @@
-package com.dev4dan.demo.lucene;
+package com.dev4dan.comp4Framework.lucene;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.util.AttributeFactory;
-import org.wltea.analyzer.lucene.IKTokenizer;
 
 import java.io.Reader;
 
@@ -30,6 +29,9 @@ public class SubIKAnalyzer extends Analyzer{
         this(false);
     }
 
+    /**
+     * 重载Analyzer接口，构造分词组件
+     */
     @Override
     protected TokenStreamComponents createComponents(String factoryName) {
         Tokenizer tokenizer = new SubIKTokenizer(AttributeFactory.DEFAULT_ATTRIBUTE_FACTORY, useSmart());
@@ -46,9 +48,7 @@ public class SubIKAnalyzer extends Analyzer{
         this.useSmart = useSmart;
     }
 
-    /**
-     * 重载Analyzer接口，构造分词组件
-     */
+
     public TokenStreamComponents createComponents(String fieldName, final Reader in) {
         Tokenizer tokenizer = new SubIKTokenizer(AttributeFactory.DEFAULT_ATTRIBUTE_FACTORY, this.useSmart());
         tokenizer.setReader(in);
