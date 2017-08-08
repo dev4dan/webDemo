@@ -1,6 +1,6 @@
 package com.dev4dan.controller;
 
-import com.dev4dan.dao.IOrderDao;
+import com.dev4dan.dao.OrderMapper;
 import com.dev4dan.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +15,7 @@ import java.util.List;
 public class AssertController {
 
     @Autowired
-    private IOrderDao iOrderDao;
+    private OrderMapper iOrderDao;
 
     public List<Order> list(List<Date> dates) {
         return iOrderDao.getOrderByDates(dates);

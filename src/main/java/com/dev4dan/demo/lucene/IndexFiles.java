@@ -1,14 +1,19 @@
 package com.dev4dan.demo.lucene;
 
+import com.dev4dan.comp4Framework.lucene.SubIKAnalyzer;
+import com.dev4dan.utils.Constants;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.*;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.*;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
-import org.apache.lucene.index.Term;
+import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.store.RAMDirectory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Date;
+import java.util.List;
 
 /** Index all text files under a directory.
  * <p>
@@ -30,7 +36,56 @@ public class IndexFiles {
 
   /** Index all text files under a directory. */
   public static void main(String[] args) {
-    String usage = "-index INDEX_DIR,-docs screan_shot.png,-update UPDATE";
+    readIndex(Constants.getDefaultProjectPath()+"/luceneTxt");
+  }
+
+  public static void readIndex(String curntPath){
+    Analyzer analyzer = new SubIKAnalyzer();
+    try {
+      Directory directory = FSDirectory.open(Paths.get(curntPath));
+      MultiReader reader = new MultiReader(StandardDirectoryReader.open(directory));
+      System.out.println("maxDoc count : "+reader.maxDoc());
+
+      int docs = reader.maxDoc();
+      for(int i=0 ; i < docs ; i++){
+        List<IndexableField> fields = reader.document(i).getFields();
+        for(IndexableField field : fields){
+          System.out.println("name : "+field.name()+"----stringValue : "+field.stringValue());
+        }
+      }
+
+      QueryParser queryParser = new QueryParser("title", new SubIKAnalyzer());
+
+      DirectoryReader searchReader = StandardDirectoryReader.open(directory);
+
+      IndexSearcher indexSearcher = new IndexSearcher(searchReader);
+
+      ScoreDoc[] scoreDocs = indexSearcher.search(queryParser.parse("创造性"), 100).scoreDocs;
+      System.out.println("len : "+scoreDocs.length);
+
+      for(int i=0 ; i<scoreDocs.length ; i++){
+        Document doc = indexSearcher.doc(scoreDocs[i].doc);
+        System.out.println("words : "+doc.getFields().size());
+//        for(IndexableField field : doc.getFields()){
+//          System.out.println("name : "+field.name()+" , value : "+field.stringValue());
+//        }
+
+      }
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+
+  }
+
+  public static void search(){
+
+  }
+
+  public static void writeIndex(){
+    String usage = "-index INDEX_DIR,-docs screen_shot.bmp,-update UPDATE";
     String indexPath = "index";
     String docsPath = null;
     boolean create = true;
@@ -58,7 +113,7 @@ public class IndexFiles {
       System.out.println("Document directory '" +docDir.toAbsolutePath()+ "' does not exist or is not readable, please check the path");
       System.exit(1);
     }
-    
+
     Date start = new Date();
     try {
       System.out.println("Indexing to directory '" + indexPath + "'...");
@@ -101,7 +156,7 @@ public class IndexFiles {
 
     } catch (IOException e) {
       System.out.println(" caught a " + e.getClass() +
-       "\n with message: " + e.getMessage());
+              "\n with message: " + e.getMessage());
     }
   }
 
@@ -143,7 +198,7 @@ public class IndexFiles {
     try (InputStream stream = Files.newInputStream(file)) {
       // make a new, empty document
       Document doc = new Document();
-      
+
       // Add the path of the file as a field named "path".  Use a
       // field that is indexed (i.e. searchable), but don't tokenize 
       // the field into separate words and don't index term frequency

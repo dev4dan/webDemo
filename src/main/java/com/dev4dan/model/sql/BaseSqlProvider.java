@@ -30,8 +30,6 @@ public class BaseSqlProvider {
 
 	/**
 	 * 查询结果SQL
-	 * 创建时间：2016年1月19日 上午9:13:41
-	 * 描述：
 	 * @version v1.0
 	 * @param
 	 * @return
@@ -63,8 +61,6 @@ public class BaseSqlProvider {
 	
 	/**
 	 * 获取批量插入值
-	 * 创建人：MoChunrun <br>
-	 * 创建时间：2016年1月25日 上午11:19:10<br>
 	 * 描述：<br>
 	 * @version v1.0<br>
 	 * @param clazz
@@ -190,9 +186,6 @@ public class BaseSqlProvider {
 	
 	/**
 	 * 清加values
-	 * 创建人：MoChunrun 
-	 * 创建时间：2016年1月15日 下午2:32:30
-	 * 描述：
 	 * @version v1.0
 	 * @param t
 	 * @param beanName

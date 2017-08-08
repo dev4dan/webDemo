@@ -1,7 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd "
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context" >
+    <!-- 属性占位符配置器 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+                <!--<value>classpath:config.properties</value>-->
+            </list>
+        </property>
+    </bean>
+    <!-- 定义 Autowired  自动注入 bean -->
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+
+    <context:component-scan base-package="com">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+
+    <!-- mysql连接数据库配置 -->
+    <bean id="xDataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${mysql_driver}" />
+        <property name="url" value="${mysql_url}" />
+        <property name="username" value="${mysql_username}" />
+        <property name="password" value="${mysql_password}" />
+        <property name="initialSize" value="5" />
+        <!--<property name="maxActive" value="100" />-->
+        <!--<property name="maxIdle" value="30" />-->
+        <!--<property name="maxWait" value="120" />-->
+        <!--<property name="poolPreparedStatements" value="false" />-->
+        <!--<property name="defaultAutoCommit" value="false" />-->
+        <!--<property name="removeAbandoned" value="true" />-->
+        <!--<property name="logAbandoned" value="true" />-->
+        <!--<property name="removeAbandonedTimeout" value="60" />-->
+        <!-- testWhileIdle异步检查所有connection，对无效链接进行关闭，保证每次取到的是有效链接 -->
+        <!--<property name="testWhileIdle" value="true"/>-->
+        <!--<property name="testOnBorrow" value="false"/>-->
+        <!--<property name="testOnReturn" value="false"/>-->
+        <!--<property name="timeBetweenEvictionRunsMillis" value="30000"/>-->
+        <!--<property name="numTestsPerEvictionRun" value="100"/>-->
+    </bean>
+
+    <!-- 映射xml位置 -->
+    <bean id="xSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="xDataSource" />
+        <property name="mapperLocations">
+            <list>
+                <value>
+                    classpath*:/mapper/*.xml
+                </value>
+            </list>
+        </property>
+        <property name="plugins">
+            <array>
+                <!--<bean class="com.github.pagehelper.PageHelper">-->
+                    <!--<property name="properties">-->
+                        <!--<value>-->
+                            <!--dialect=mysql-->
+                            <!--reasonable=false-->
+                            <!--rowBoundsWithCount=true-->
+                            <!--offsetAsPageNum=true-->
+                        <!--</value>-->
+                    <!--</property>-->
+                <!--</bean>-->
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <value>
+                            <!--dialect=mysql-->
+                            <!--reasonable=false-->
+                            <!--rowBoundsWithCount=true-->
+                            <!--offsetAsPageNum=true-->
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+    <!-- jdbc模板类  -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource">
+            <ref bean="xDataSource" />
+        </property>
+    </bean>
+
+    <!-- hibernate事务管理（也兼容jdbcTemplate模板的事务管理） -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="xDataSource" />
+    </bean>
+
+    <!-- 数据库持久层位置 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.dev4dan.dao" />
+        <property name="sqlSessionFactoryBeanName" value="xSqlSessionFactory" />
+    </bean>
+    <!-- spring Annotation动态代理（CGlib）实现事务管理 =====开始-->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+    <!-- AOP -->
+    <aop:aspectj-autoproxy proxy-target-class="true" />
 
     <bean id="jedisConnFactory"
           class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:use-pool="true"/>
@@ -10,4 +122,16 @@
     <bean id="redisTemplate"
           class="org.springframework.data.redis.core.RedisTemplate" p:connection-factory-ref="jedisConnFactory"/>
 
+
+
+    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.dev4dan.dao.UserMapper"></property>
+        <property name="sqlSessionFactory" ref="xSqlSessionFactory"></property>
+    </bean>
+
+    <!--<bean id="mongoUserDao" class="com.dev4dan.mongoDao.impl.UserDaoImpl"/>-->
+
+    <bean id="mongoDao" class="com.dev4dan.mongoDao.impl.MongoDaoImpl"/>
+    <import resource="classpath:applicationContext-mongo.xml"/>
+    <import resource="classpath*:mybatisConfig.xml"/>
 </beans>

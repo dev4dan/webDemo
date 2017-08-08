@@ -1,10 +1,12 @@
 package com.dev4dan.model;
 
+import java.util.Date;
+
 public class User {
     
     private int id;
     private String userName;
-    private String userAge;
+    private Date birthday;
     private String userAddress;
     
     public int getId() {
@@ -19,12 +21,6 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    public String getUserAge() {
-        return userAge;
-    }
-    public void setUserAge(String userAge) {
-        this.userAge = userAge;
-    }
     public String getUserAddress() {
         return userAddress;
     }
@@ -32,4 +28,21 @@ public class User {
         this.userAddress = userAddress;
     }
 
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", birthday=" + birthday +
+                ", userAddress='" + userAddress + '\'' +
+                '}';
+    }
 }

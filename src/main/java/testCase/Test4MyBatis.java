@@ -11,9 +11,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import com.dev4dan.dao.IEmployeeDao;
-import com.dev4dan.dao.IOrderDao;
-import com.dev4dan.dao.IUserDao;
+import com.dev4dan.dao.EmployeeMapper;
+import com.dev4dan.dao.OrderMapper;
+import com.dev4dan.dao.UserMapper;
 import com.dev4dan.model.Employee;
 import com.dev4dan.model.Order;
 import com.dev4dan.model.User;
@@ -21,7 +21,7 @@ import com.dev4dan.utils.DateUtils;
 
 public class Test4MyBatis {
 	private static SqlSessionFactory sqlSessionFactory;
-	private static String fileName = "config/MyBatisConfig.xml";
+	private static String fileName = "./MyBatisConfig.xml";
 	private static Reader reader;
 	static {
 		try {
@@ -35,7 +35,7 @@ public class Test4MyBatis {
 			LogFactory.useLog4JLogging();
 			
 			//在mapper的namespace中没有指明mapper完整类名(package+class)，记得使用前先注册
-//			sqlSessionFactory.getConfiguration().addMapper(IUserDao.class);
+//			sqlSessionFactory.getConfiguration().addMapper(UserMapper.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,7 +48,7 @@ public class Test4MyBatis {
 	public static void main(String[] args) {
 //		queryByDao();
 //		queryUsereByFn();
-//		queryEmployeeByDao();
+		queryEmployeeByDao();
 //		queryOrderByDaoTest();
 	}
 	
@@ -67,8 +67,8 @@ public class Test4MyBatis {
 	public static void queryUserByDao(){
 		 SqlSession session = sqlSessionFactory.openSession();
 	        try {
-	            IUserDao userDao=session.getMapper(IUserDao.class);
-	            User user = userDao.selectUserByID(1);
+	            UserMapper userMapper =session.getMapper(UserMapper.class);
+	            User user = userMapper.selectUserByID(1);
 	            System.out.println(user.getUserAddress());
 	            System.out.println(user.getUserName());
 	        } finally {
@@ -79,7 +79,7 @@ public class Test4MyBatis {
 	public static void queryEmployeeByDao(){
 		 SqlSession session = sqlSessionFactory.openSession();
 	        try {
-	            IEmployeeDao employeeDao=session.getMapper(IEmployeeDao.class);
+	            EmployeeMapper employeeDao=session.getMapper(EmployeeMapper.class);
 	            Employee empl = employeeDao.getEmployeeById(1);
 	            System.out.println(empl.getName());
 	            
@@ -98,7 +98,7 @@ public class Test4MyBatis {
 		 SqlSession session = sqlSessionFactory.openSession();
 		 
 	        try {
-	            IOrderDao orderDao=session.getMapper(IOrderDao.class);
+	            OrderMapper orderDao=session.getMapper(OrderMapper.class);
 	            List<Integer> empsID = new ArrayList<Integer>();
 	            
 	            for(int i=1 ; i<=20 ; i++){

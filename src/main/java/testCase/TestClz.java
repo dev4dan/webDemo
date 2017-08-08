@@ -9,12 +9,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.beanutils.BeanUtils;
 
 import com.dev4dan.model.Employee;
 import com.dev4dan.model.SQLProviderHelper;
+import com.dev4dan.model.User;
 import com.dev4dan.model.sql.SqlProvider;
+import com.dev4dan.utils.BeanInfoAssistant;
 import com.dev4dan.utils.Constants;
+import org.apache.commons.beanutils.BeanUtils;
 
 public class TestClz {
 
@@ -27,6 +29,24 @@ public class TestClz {
 //		testSQLProvider();
 		ImplClz impl = new ImplClz();
 		impl.invokeAbsMethod("impl...");
+
+
+		try {
+			Map<String,Object> map = BeanInfoAssistant.setBean2Map(new User());
+			Map<String, String> infos = new HashMap<String, String>();
+			infos.put("userAddress", "somewhere");
+			infos.put("id", "1");
+			infos.put("userName", "userName");
+			User user = new User();
+			BeanInfoAssistant.setValues2Bean(infos, user);
+			System.out.println(map.toString());
+			System.out.println(user.toString());
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
 
 		System.out.println(Constants.CONDITION.AND.name());
 	}
