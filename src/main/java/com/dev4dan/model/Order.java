@@ -1,5 +1,8 @@
 package com.dev4dan.model;
-public class Order {
+
+import java.io.Serializable;
+
+public class Order implements Serializable{
 	private int ID = 0;
 	private int empID = 0;
 	private String date = null;

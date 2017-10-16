@@ -16,10 +16,10 @@
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
-				<property name="driver" value="com.mysql.jdbc.Driver" />
-				<property name="url" value="jdbc:mysql://127.0.0.1:3306/myPractise" />
-				<property name="username" value="root" />
-				<property name="password" value="MySQL123abc" />
+				<property userName="driver" value="com.mysql.jdbc.Driver" />
+				<property userName="url" value="jdbc:mysql://127.0.0.1:3306/myPractise" />
+				<property userName="username" value="root" />
+				<property userName="password" value="MySQL123abc" />
 			</dataSource>
 		</environment>
 	</environments>

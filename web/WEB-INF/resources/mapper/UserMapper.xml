@@ -15,7 +15,7 @@
     </select>
     
     <select id="selectUserByName" parameterType="String" resultMap="userResult">
-		select idpk, username, birthday, userAddress from `user` where userName = #{name} LIMIT 0,1;
+		select idpk, username, birthday, userAddress from `user` where userName = #{userName} LIMIT 0,1;
     </select>
 
     <insert id="insertUser" parameterType="com.dev4dan.model.User" useGeneratedKeys="true" keyProperty="id">

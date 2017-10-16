@@ -40,20 +40,20 @@
         <property name="username" value="${mysql_username}" />
         <property name="password" value="${mysql_password}" />
         <property name="initialSize" value="5" />
-        <!--<property name="maxActive" value="100" />-->
-        <!--<property name="maxIdle" value="30" />-->
-        <!--<property name="maxWait" value="120" />-->
-        <!--<property name="poolPreparedStatements" value="false" />-->
-        <!--<property name="defaultAutoCommit" value="false" />-->
-        <!--<property name="removeAbandoned" value="true" />-->
-        <!--<property name="logAbandoned" value="true" />-->
-        <!--<property name="removeAbandonedTimeout" value="60" />-->
+        <!--<property userName="maxActive" value="100" />-->
+        <!--<property userName="maxIdle" value="30" />-->
+        <!--<property userName="maxWait" value="120" />-->
+        <!--<property userName="poolPreparedStatements" value="false" />-->
+        <!--<property userName="defaultAutoCommit" value="false" />-->
+        <!--<property userName="removeAbandoned" value="true" />-->
+        <!--<property userName="logAbandoned" value="true" />-->
+        <!--<property userName="removeAbandonedTimeout" value="60" />-->
         <!-- testWhileIdle异步检查所有connection，对无效链接进行关闭，保证每次取到的是有效链接 -->
-        <!--<property name="testWhileIdle" value="true"/>-->
-        <!--<property name="testOnBorrow" value="false"/>-->
-        <!--<property name="testOnReturn" value="false"/>-->
-        <!--<property name="timeBetweenEvictionRunsMillis" value="30000"/>-->
-        <!--<property name="numTestsPerEvictionRun" value="100"/>-->
+        <!--<property userName="testWhileIdle" value="true"/>-->
+        <!--<property userName="testOnBorrow" value="false"/>-->
+        <!--<property userName="testOnReturn" value="false"/>-->
+        <!--<property userName="timeBetweenEvictionRunsMillis" value="30000"/>-->
+        <!--<property userName="numTestsPerEvictionRun" value="100"/>-->
     </bean>
 
     <!-- 映射xml位置 -->
@@ -69,7 +69,7 @@
         <property name="plugins">
             <array>
                 <!--<bean class="com.github.pagehelper.PageHelper">-->
-                    <!--<property name="properties">-->
+                    <!--<property userName="properties">-->
                         <!--<value>-->
                             <!--dialect=mysql-->
                             <!--reasonable=false-->
@@ -128,6 +128,8 @@
         <property name="mapperInterface" value="com.dev4dan.dao.UserMapper"></property>
         <property name="sqlSessionFactory" ref="xSqlSessionFactory"></property>
     </bean>
+
+    <bean class="com.dev4dan.demo.dataPrepare.MyApplicationListener"/>
 
     <!--<bean id="mongoUserDao" class="com.dev4dan.mongoDao.impl.UserDaoImpl"/>-->
 

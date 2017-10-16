@@ -3,13 +3,13 @@
 <mapper namespace="com.dev4dan.dao.EmployeeMapper">
 	<resultMap id="employeeResult" type="com.dev4dan.model.Employee">
 		<id property="idpk" column="idpk" javaType="Integer" jdbcType="INTEGER"/>
-		<result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
+		<result property="userName" column="userName" javaType="String" jdbcType="VARCHAR"/>
 		<result property="salary" column="salary" javaType="Integer" jdbcType="INTEGER"/>
 	</resultMap>
 
 	<!--<resultMap id="empList" type="com.dev4dan.model.Employee">-->
 	<!--<id column="id" property="id" />-->
-	<!--<result column="name" property="name" />-->
+	<!--<result column="userName" property="userName" />-->
 	<!--<result column="salary" property="salary" />-->
 	<!--</resultMap>-->
 
@@ -19,6 +19,6 @@
 
 	<!--<select id="getEmployeeByName" parameterType="String"-->
 	<!--resultType="Order">-->
-	<!--select * from `t_employee` where name = #{name}-->
+	<!--select * from `t_employee` where userName = #{userName}-->
 	<!--</select>-->
 </mapper>

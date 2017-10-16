@@ -1,2 +1,4 @@
 .idea
 target
+web/WEB-INF/lib
+.DS_Store

@@ -64,7 +64,9 @@ public class MongoDaoImpl<T> implements MongoDao<T> {
     public int insertList(List<T> list, Class<?> clz){
         if(list != null && list.size() > 0){
 //            mongoTemplate.insertAll(list);
+//            createCollection(clz);
             createCollection(clz);
+            System.out.println("list.size : "+list.size());
             mongoTemplate.insert(list, clz);
             return SUCC;
         }

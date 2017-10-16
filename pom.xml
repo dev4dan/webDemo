@@ -5,23 +5,11 @@
     <groupId>demo</groupId>
     <artifactId>demo</artifactId>
     <version>1.0</version>
-    <name>demo</name>
+    <userName>demo</userName>
     <packaging>war</packaging>
 
     <properties>
         <!-- 主要依赖库的版本定义 -->
-        <!-- <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-            <jdk-version>1.7</jdk-version> <spring-batch.version>2.2.7.RELEASE</spring-batch.version>
-            <mybatis-pagehelper.version>3.7.0</mybatis-pagehelper.version> <slf4j.version>1.6.1</slf4j.version>
-            <jdbc.driver.version>5.1.20</jdbc.driver.version> <cglib-nodep.version>2.2.2</cglib-nodep.version>
-            <commons-dbcp.version>1.4</commons-dbcp.version> <commons-logging.version>1.1</commons-logging.version>
-            <servlet-api.version>2.5</servlet-api.version>
-            <jstl.version>1.2</jstl.version> <aspectj.version>1.5.4</aspectj.version>
-            <gson.version>2.2.4</gson.version> <jedis.version>2.1.0</jedis.version> <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-            <commons-lang.version>3.3.2</commons-lang.version> <commons.collections.version>3.2.1</commons.collections.version>
-            <spring.security.version>4.0.2.RELEASE</spring.security.version> <shiro.version>1.2.2</shiro.version>
-            <httpclient.version>4.5.1</httpclient.version> <httpmime.version>4.5.1</httpmime.version>
-            <deploy.env>dev</deploy.env> <logback.version>1.1.7</logback.version> -->
         <aspectj_version>1.8.7</aspectj_version>
         <junit.version>4.12</junit.version>
         <mybatis.version>3.4.0</mybatis.version>

@@ -7,7 +7,6 @@ import com.dev4dan.model.mongo.NameEntity;
 import com.dev4dan.model.mongo.UserEntity;
 import com.dev4dan.model.peoplesInfo.Citizen;
 import com.dev4dan.mongoDao.MongoDao;
-import com.dev4dan.mongoDao.MongoUserDao;
 import com.dev4dan.utils.DateUtils;
 import com.dev4dan.utils.GeekStringUtils;
 import org.junit.Test;
@@ -56,12 +55,11 @@ public class MongoDemo {
 
     @Test
     public void testCitizen(){
-        int num = 10;
-        List<Citizen> citizens = new ArrayList<>();
-        int insertTimes = 1;
-        int size = 10;
+        int insertTimes = 100;
+        int size = 10000;
         mongoDao.createCollection(Citizen.class);
         for(int j = 0 ; j < insertTimes ; j++){
+            List<Citizen> citizens = new ArrayList<>();
             for(int i=0 ; i<size; i++){
                 Citizen citizen = new Citizen();
                 citizen.setCitizenName(RandomInfo.getChineseName());
@@ -78,8 +76,15 @@ public class MongoDemo {
                 citizen.setAddress(RandomInfo.getRoad());
                 citizen.setMobile(RandomInfo.getTel());
                 citizens.add(citizen);
+//                System.out.println(citizen.toString());
             }
             mongoDao.insertList(citizens, Citizen.class);
+            try {
+                System.out.println("times : "+(j+1));
+                Thread.currentThread().sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
